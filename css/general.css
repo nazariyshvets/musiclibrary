@@ -1,0 +1,53 @@
+:root {
+  --charcoal: #36454f;
+  --black: #101314;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background-color: var(--charcoal);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins, Arial, sans-serif;
+  color: var(--black);
+  text-decoration: none;
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+  min-height: 100dvh;
+  padding: 40px;
+  background-color: var(--black);
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  body {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+
+  body {
+    row-gap: 20px;
+    padding: 20px 10px;
+  }
+}

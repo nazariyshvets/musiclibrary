@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music library: Search</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/general.css" />
+    <link rel="stylesheet" href="../css/bgAnimation.css" />
+    <link rel="stylesheet" href="../css/musicPlayer.css" />
+    <link rel="stylesheet" href="../css/search.css" />
+    <script
+      src="https://kit.fontawesome.com/ae077b9f76.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <canvas class="bg-canvas"></canvas>
+
+    <div class="main-container">
+      <a
+        href="../index.html"
+        class="home-wrapper"
+        title="Back home"
+        draggable="false"
+      >
+        <i class="fa-solid fa-house"></i>
+      </a>
+
+      <form class="search-form">
+        <div class="search-input-wrapper">
+          <input
+            type="text"
+            class="search-input"
+            name="search"
+            placeholder="Search..."
+            autocomplete="off"
+          />
+          <button type="submit" class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+
+        <select class="genre-select" name="genre">
+          <option value="">all genres</option>
+          <option value="pop">pop</option>
+          <option value="rock">rock</option>
+          <option value="electronic">electronic</option>
+          <option value="hiphop">hiphop</option>
+          <option value="jazz">jazz</option>
+          <option value="indie">indie</option>
+          <option value="filmscore">filmscore</option>
+          <option value="classical">classical</option>
+          <option value="chillout">chillout</option>
+          <option value="ambient">ambient</option>
+          <option value="folk">folk</option>
+          <option value="metal">metal</option>
+          <option value="latin">latin</option>
+          <option value="rnb">rnb</option>
+          <option value="reggae">reggae</option>
+          <option value="punk">punk</option>
+          <option value="country">country</option>
+          <option value="house">house</option>
+          <option value="blues">blues</option>
+        </select>
+      </form>
+
+      <div class="songs-container" translate="no"></div>
+
+      <div class="player">
+        <div class="prev-wrapper">
+          <i class="fa-solid fa-backward-step"></i>
+        </div>
+        <div class="play-stop-wrapper"><i class="fa-solid fa-play"></i></div>
+        <div class="next-wrapper"><i class="fa-solid fa-forward-step"></i></div>
+        <div class="track-wrapper">
+          <canvas class="player-canvas"></canvas>
+          <input
+            type="range"
+            class="track"
+            min="0"
+            max="100"
+            step="0.1"
+            value="0"
+          />
+        </div>
+        <div class="time">0:00/0:00</div>
+        <div class="volume-wrapper">
+          <i class="fa-solid fa-volume-high"></i>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <div class="prev-page">&lt; Prev</div>
+        <div class="current-page">1</div>
+        <div class="next-page">Next &gt;</div>
+      </div>
+    </div>
+
+    <audio class="audio"></audio>
+
+    <script src="../js/bgAnimation.js"></script>
+    <script src="../js/musicPlayer.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/songVisualization.js"></script>
+  </body>
+</html>

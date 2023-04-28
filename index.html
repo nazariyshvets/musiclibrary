@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music library: Home</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/general.css" />
+    <link rel="stylesheet" href="./css/bgAnimation.css" />
+    <link rel="stylesheet" href="./css/musicPlayer.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <script
+      src="https://kit.fontawesome.com/ae077b9f76.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <canvas class="bg-canvas"></canvas>
+
+    <a
+      href="./pages/search.html"
+      class="search-wrapper"
+      title="Search for songs"
+      draggable="false"
+    >
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </a>
+
+    <div class="songs-container" translate="no"></div>
+
+    <div class="player">
+      <div class="prev-wrapper"><i class="fa-solid fa-backward-step"></i></div>
+      <div class="play-stop-wrapper"><i class="fa-solid fa-play"></i></div>
+      <div class="next-wrapper"><i class="fa-solid fa-forward-step"></i></div>
+      <div class="track-wrapper">
+        <canvas class="player-canvas"></canvas>
+        <input
+          type="range"
+          class="track"
+          min="0"
+          max="100"
+          step="0.1"
+          value="0"
+        />
+      </div>
+      <div class="time">00:00/00:00</div>
+      <div class="volume-wrapper"><i class="fa-solid fa-volume-high"></i></div>
+    </div>
+
+    <audio class="audio"></audio>
+
+    <script src="./js/bgAnimation.js"></script>
+    <script src="./js/musicPlayer.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/songVisualization.js"></script>
+  </body>
+</html>
