@@ -6,6 +6,6 @@
 2. Great-looking background animation.
 3. Searching and filtering songs.
 
-The app is running thanks to Jamendo API (visit [Jamendo](https://www.jamendo.com/)).
-Free icons you can find at [Font Awesome](https://fontawesome.com/).
+The app is running thanks to Jamendo API (visit <a href="https://www.jamendo.com/" target="_blank">Jamendo</a>).
+Free icons you can find at <a href="https://fontawesome.com/" target="_blank">Font Awesome</a>.
 Try the app and have a nice time!
