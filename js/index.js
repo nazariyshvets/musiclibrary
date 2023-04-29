@@ -52,7 +52,7 @@ songContainers?.forEach((container) => {
   container.addEventListener("click", () => {
     if (container === selectedSongContainer) return;
 
-    changeAudioSrc(container.dataset.audioSrc);
+    playNewSong(container.dataset.audioSrc);
     changeSelectedContainer(container);
   });
 });

@@ -130,7 +130,7 @@ const addEventListenersForPlayBtns = () => {
 
       if (songContainer === selectedSongContainer) return;
 
-      changeAudioSrc(songContainer.dataset.audioSrc);
+      playNewSong(songContainer.dataset.audioSrc);
       changeSelectedContainer(songContainer);
     });
   });

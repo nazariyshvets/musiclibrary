@@ -39,8 +39,8 @@ const toggleAudioPlayback = () => {
   }
 };
 
-const changeAudioSrc = (newAudioSrc) => {
-  audio.pause();
+const playNewSong = (newAudioSrc) => {
+  if (!audio.paused) audio.pause();
   audio.src = newAudioSrc;
   audio.load();
   audio.play();
@@ -112,6 +112,42 @@ const clearAllIntervals = () => {
   }
 };
 
+const playPrevSong = () => {
+  if (!selectedSongContainer) return;
+
+  const currentSongContainerIndex = songContainers.includes(
+    selectedSongContainer
+  )
+    ? songContainers.indexOf(selectedSongContainer)
+    : 1;
+  const prevSongContainer =
+    songContainers[
+      currentSongContainerIndex === 0
+        ? songContainers.length - 1
+        : currentSongContainerIndex - 1
+    ];
+
+  playNewSong(prevSongContainer.dataset.audioSrc);
+  changeSelectedContainer(prevSongContainer);
+};
+
+const playNextSong = () => {
+  if (!selectedSongContainer) return;
+
+  const currentSongContainerIndex = songContainers.indexOf(
+    selectedSongContainer
+  );
+  const nextSongContainer =
+    songContainers[
+      currentSongContainerIndex === songContainers.length - 1
+        ? 0
+        : currentSongContainerIndex + 1
+    ];
+
+  playNewSong(nextSongContainer.dataset.audioSrc);
+  changeSelectedContainer(nextSongContainer);
+};
+
 const addEventListenersForWindow = () => {
   window.addEventListener("keydown", (event) => {
     if (event.target.tagName === "INPUT") return;
@@ -130,47 +166,15 @@ const addEventListenersForWindow = () => {
 };
 
 const addEventListenersForPrevBtn = () => {
-  prevBtn.addEventListener("click", () => {
-    if (songContainers.length <= 1 || !selectedSongContainer) return;
-
-    const currentSongContainerIndex = songContainers.includes(
-      selectedSongContainer
-    )
-      ? songContainers.indexOf(selectedSongContainer)
-      : 1;
-    const prevSongContainer =
-      songContainers[
-        currentSongContainerIndex === 0
-          ? songContainers.length - 1
-          : currentSongContainerIndex - 1
-      ];
-
-    changeAudioSrc(prevSongContainer.dataset.audioSrc);
-    changeSelectedContainer(prevSongContainer);
-  });
+  prevBtn.addEventListener("click", playPrevSong);
 };
 
 const addEventListenersForPlayStopBtn = () => {
-  playStopBtn.addEventListener("click", () => toggleAudioPlayback());
+  playStopBtn.addEventListener("click", toggleAudioPlayback);
 };
 
 const addEventListenersForNextBtn = () => {
-  nextBtn.addEventListener("click", () => {
-    if (songContainers.length <= 1 || !selectedSongContainer) return;
-
-    const currentSongContainerIndex = songContainers.indexOf(
-      selectedSongContainer
-    );
-    const nextSongContainer =
-      songContainers[
-        currentSongContainerIndex === songContainers.length - 1
-          ? 0
-          : currentSongContainerIndex + 1
-      ];
-
-    changeAudioSrc(nextSongContainer.dataset.audioSrc);
-    changeSelectedContainer(nextSongContainer);
-  });
+  nextBtn.addEventListener("click", playNextSong);
 };
 
 const addEventListenersForTrackController = () => {
@@ -230,21 +234,9 @@ const addEventListenersForAudio = () => {
     }
   });
 
-  audio.addEventListener("pause", () => {
-    clearAllIntervals();
-  });
+  audio.addEventListener("pause", clearAllIntervals);
 
-  audio.addEventListener("ended", () => {
-    clearAllIntervals();
-
-    const audioDurationStr = toMinutesStr(audio.duration);
-    trackController.value = trackControllerMaxValue;
-    time.textContent = `${audioDurationStr}/${audioDurationStr}`;
-
-    if (playStopBtn.classList.contains("fa-stop")) {
-      playStopBtn.classList.replace("fa-stop", "fa-play");
-    }
-  });
+  audio.addEventListener("ended", playNextSong);
 };
 
 const addEventListenersForMusicPlayer = () => {
