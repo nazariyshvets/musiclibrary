@@ -1,14 +1,17 @@
 :root {
   --charcoal: #36454f;
   --black: #101314;
+  --white: #fff;
+  --lightgray: #d3d3d3;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0.7rem;
+  height: 0.7rem;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 100px;
+  border-radius: 10rem;
   background-color: var(--charcoal);
 }
 
@@ -17,6 +20,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Poppins, Arial, sans-serif;
+  -webkit-text-fill-color: var(--black);
   color: var(--black);
   text-decoration: none;
 }
@@ -25,19 +29,15 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  row-gap: 40px;
+  row-gap: 2rem;
   min-height: 100dvh;
-  padding: 40px;
+  padding: 2rem;
   background-color: var(--black);
 }
 
 @media screen and (max-width: 768px) {
   html {
     font-size: 14px;
-  }
-
-  body {
-    padding: 20px;
   }
 }
 
@@ -47,7 +47,6 @@ body {
   }
 
   body {
-    row-gap: 20px;
-    padding: 20px 10px;
+    padding: 1rem;
   }
 }

@@ -99,7 +99,7 @@ const handleSearchFormSubmit = async (event) => {
   songsData = await getSongsData(genre, search);
   page = 1;
   renderSongContainers();
-  songContainers = Array.from(document.querySelectorAll(".song-wrapper"));
+  songContainers = [...document.querySelectorAll(".song-wrapper")];
 
   addEventListenersForPlayBtns();
   addEventListenersForAddBtns();
@@ -120,9 +120,7 @@ const addEventListenersForGenreSelect = () => {
 };
 
 const addEventListenersForPlayBtns = () => {
-  const playBtns = Array.from(
-    document.querySelectorAll(".song-play-wrapper > i")
-  );
+  const playBtns = [...document.querySelectorAll(".song-play-wrapper > i")];
 
   playBtns?.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -130,16 +128,14 @@ const addEventListenersForPlayBtns = () => {
 
       if (songContainer === selectedSongContainer) return;
 
-      playNewSong(songContainer.dataset.audioSrc);
       changeSelectedContainer(songContainer);
+      playNewSong(songContainer.dataset.audioSrc);
     });
   });
 };
 
 const addEventListenersForAddBtns = () => {
-  const addBtns = Array.from(
-    document.querySelectorAll(".song-add-wrapper > i")
-  );
+  const addBtns = [...document.querySelectorAll(".song-add-wrapper > i")];
 
   addBtns.forEach((btn) => {
     btn.addEventListener("click", async () => {
@@ -161,7 +157,7 @@ const addEventListenersForPrevPage = () => {
 
     page--;
     renderSongContainers();
-    songContainers = Array.from(document.querySelectorAll(".song-wrapper"));
+    songContainers = [...document.querySelectorAll(".song-wrapper")];
 
     addEventListenersForPlayBtns();
     addEventListenersForAddBtns();
@@ -176,17 +172,23 @@ const addEventListenersForNextPage = () => {
   nextPage.addEventListener("click", async () => {
     const songsNum = songsData.length;
 
+    //run out of songs - fetch new ones
     if (page >= Math.ceil(songsNum / limit)) {
       const searchForm = document.querySelector(".search-form");
       const search = searchForm.elements["search"].value;
       const genre = searchForm.elements["genre"].value;
       const newSongsData = await getSongsData(genre, search, songsNum);
-      songsData.push(...newSongsData);
+
+      if (newSongsData.length > 0) {
+        songsData.push(...newSongsData);
+      } else {
+        return;
+      }
     }
 
     page++;
     renderSongContainers();
-    songContainers = Array.from(document.querySelectorAll(".song-wrapper"));
+    songContainers = [...document.querySelectorAll(".song-wrapper")];
 
     addEventListenersForPlayBtns();
     addEventListenersForAddBtns();
@@ -198,7 +200,7 @@ const addEventListenersForNextPage = () => {
 const main = async () => {
   songsData = await getSongsData();
   renderSongContainers();
-  songContainers = Array.from(document.querySelectorAll(".song-wrapper"));
+  songContainers = [...document.querySelectorAll(".song-wrapper")];
 
   addEventListenersForSearchForm();
   addEventListenersForGenreSelect();
@@ -206,7 +208,7 @@ const main = async () => {
   addEventListenersForPlayBtns();
   addEventListenersForAddBtns();
 
-  addEventListenersForMusicPlayer();
+  addEventListenersForMusicPlayer(songContainers);
 
   addEventListenersForPrevPage();
   addEventListenersForNextPage();

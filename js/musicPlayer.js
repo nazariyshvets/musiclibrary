@@ -10,11 +10,13 @@ let trackControllerIsHeld;
 let trackControllerInterval;
 let timeInterval;
 let songVisualizationInterval;
+let containers = [];
 
 const resetPlayer = () => {
   clearAllIntervals();
 
   if (!audio.paused) audio.pause();
+
   audio.src = "";
   trackController.value = 0;
   time.textContent = "00:00/00:00";
@@ -41,6 +43,7 @@ const toggleAudioPlayback = () => {
 
 const playNewSong = (newAudioSrc) => {
   if (!audio.paused) audio.pause();
+
   audio.src = newAudioSrc;
   audio.load();
   audio.play();
@@ -100,15 +103,15 @@ const setSongVisualizationInterval = () => {
 const clearAllIntervals = () => {
   if (trackControllerInterval) {
     clearInterval(trackControllerInterval);
-    trackControllerInterval = undefined;
+    trackControllerInterval = null;
   }
   if (timeInterval) {
     clearInterval(timeInterval);
-    timeInterval = undefined;
+    timeInterval = null;
   }
   if (songVisualizationInterval) {
     clearInterval(songVisualizationInterval);
-    songVisualizationInterval = undefined;
+    songVisualizationInterval = null;
   }
 };
 
@@ -127,8 +130,8 @@ const playPrevSong = () => {
         : currentSongContainerIndex - 1
     ];
 
-  playNewSong(prevSongContainer.dataset.audioSrc);
   changeSelectedContainer(prevSongContainer);
+  playNewSong(prevSongContainer.dataset.audioSrc);
 };
 
 const playNextSong = () => {
@@ -144,8 +147,8 @@ const playNextSong = () => {
         : currentSongContainerIndex + 1
     ];
 
-  playNewSong(nextSongContainer.dataset.audioSrc);
   changeSelectedContainer(nextSongContainer);
+  playNewSong(nextSongContainer.dataset.audioSrc);
 };
 
 const addEventListenersForWindow = () => {
@@ -156,9 +159,11 @@ const addEventListenersForWindow = () => {
       event.preventDefault();
       toggleAudioPlayback();
     } else if (event.code === "ArrowLeft" && audio.readyState >= 2) {
+      event.preventDefault();
       audio.currentTime -= 10;
       audio.play();
     } else if (event.code === "ArrowRight" && audio.readyState >= 2) {
+      event.preventDefault();
       audio.currentTime += 10;
       audio.play();
     }
@@ -239,7 +244,9 @@ const addEventListenersForAudio = () => {
   audio.addEventListener("ended", playNextSong);
 };
 
-const addEventListenersForMusicPlayer = () => {
+const addEventListenersForMusicPlayer = (songContainers) => {
+  containers = songContainers;
+
   addEventListenersForWindow();
   addEventListenersForPrevBtn();
   addEventListenersForPlayStopBtn();
